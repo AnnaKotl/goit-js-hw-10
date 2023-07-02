@@ -26,7 +26,7 @@ function selectCat() {
     .catch(() => {
       showError();
     });
-}
+};
 
 selectCat();
 
@@ -44,41 +44,29 @@ function createInfo() {
       showError();
       Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
     });
-}
+};
 
 function showLoader() {
   spinner.spin(spinnerEl);
   loaderEl.style.display = 'block';
-}
+};
 
 function hideLoader() {
   spinner.stop();
   loaderEl.style.display = 'none';
-}
+};
 
 function showError() {
   errorEl.style.display = 'block';
-}
+};
 
 function showCatInfo(catData) {
   const breed = catData.breeds[0];
-  const imgEl = document.createElement('img');
-  imgEl.src = catData.url;
-  imgEl.alt = breed.name;
-  imgEl.height = 600;
-  imgEl.width = 500;
 
-  const nameEl = document.createElement('h1');
-  nameEl.textContent = breed.name;
-
-  const descEl = document.createElement('p');
-  descEl.textContent = breed.description;
-
-  const temperamentEl = document.createElement('h2');
-  temperamentEl.textContent = `Temperament: ${breed.temperament}`;
-
-  infoEl.appendChild(imgEl);
-  infoEl.appendChild(nameEl);
-  infoEl.appendChild(descEl);
-  infoEl.appendChild(temperamentEl);
-}
+  infoEl.innerHTML = `
+    <img src="${catData.url}" alt="${breed.name}" height="600" width="500">
+    <h1>${breed.name}</h1>
+    <p>${breed.description}</p>
+    <h2>Temperament: ${breed.temperament}</h2>
+  `;
+};

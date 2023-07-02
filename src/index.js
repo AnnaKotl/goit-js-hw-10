@@ -1,10 +1,12 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
+import { spinner } from './spinner';
 import Notiflix from 'notiflix';
 
 const errorEl = document.querySelector('.error');
 const loaderEl = document.querySelector('.loader');
 const selectEl = document.querySelector('.breed-select');
 const infoEl = document.querySelector('.cat-info');
+const spinnerEl = document.querySelector('#foo');
 
 selectEl.onchange = createInfo;
 errorEl.style.display = 'none';
@@ -12,17 +14,17 @@ loaderEl.style.display = 'none';
 infoEl.style.display = 'none';
 
 function selectCat() {
-  loaderEl.style.display = 'block';
+  showLoader();
   fetchBreeds()
     .then(data => {
-      loaderEl.style.display = 'none';
+      hideLoader();
       selectEl.innerHTML = data
         .map(({ id, name }) => `<option value="${id}">${name}</option>`)
         .join('');
       selectEl.style.display = 'block';
     })
     .catch(() => {
-      errorEl.style.display = 'block';
+      showError();
     });
 }
 
@@ -31,17 +33,31 @@ selectCat();
 function createInfo() {
   infoEl.innerHTML = '';
   infoEl.style.display = 'none';
-  loaderEl.style.display = 'block';
+  showLoader();
   fetchCatByBreed(selectEl.value)
     .then(data => {
-      loaderEl.style.display = 'none';
+      hideLoader();
       infoEl.style.display = 'block';
       showCatInfo(data);
     })
     .catch(() => {
-      errorEl.style.display = 'block';
+      showError();
       Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
     });
+}
+
+function showLoader() {
+  spinner.spin(spinnerEl);
+  loaderEl.style.display = 'block';
+}
+
+function hideLoader() {
+  spinner.stop();
+  loaderEl.style.display = 'none';
+}
+
+function showError() {
+  errorEl.style.display = 'block';
 }
 
 function showCatInfo(catData) {

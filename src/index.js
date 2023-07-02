@@ -14,51 +14,51 @@ loaderEl.style.display = 'none';
 infoEl.style.display = 'none';
 
 function selectCat() {
-  showLoader();
+  showLoader(spinnerEl, loaderEl);
   fetchBreeds()
     .then(data => {
-      hideLoader();
+      hideLoader(spinnerEl, loaderEl);
       selectEl.innerHTML = data
         .map(({ id, name }) => `<option value="${id}">${name}</option>`)
         .join('');
       selectEl.style.display = 'block';
     })
     .catch(() => {
-      showError();
+      showError(errorEl);
     });
-};
+}
 
 selectCat();
 
 function createInfo() {
   infoEl.innerHTML = '';
   infoEl.style.display = 'none';
-  showLoader();
+  showLoader(spinnerEl, loaderEl);
   fetchCatByBreed(selectEl.value)
     .then(data => {
-      hideLoader();
+      hideLoader(spinnerEl, loaderEl);
       infoEl.style.display = 'block';
       showCatInfo(data);
     })
     .catch(() => {
-      showError();
+      showError(errorEl);
       Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
     });
-};
+}
 
-function showLoader() {
+function showLoader(spinnerEl, loaderEl) {
   spinner.spin(spinnerEl);
   loaderEl.style.display = 'block';
-};
+}
 
-function hideLoader() {
+function hideLoader(spinnerEl, loaderEl) {
   spinner.stop();
   loaderEl.style.display = 'none';
-};
+}
 
-function showError() {
+function showError(errorEl) {
   errorEl.style.display = 'block';
-};
+}
 
 function showCatInfo(catData) {
   const breed = catData.breeds[0];
@@ -69,4 +69,4 @@ function showCatInfo(catData) {
     <p>${breed.description}</p>
     <h2>Temperament: ${breed.temperament}</h2>
   `;
-};
+}

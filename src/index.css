@@ -1,0 +1,55 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.error,
+.loader,
+.cat-info {
+    display: none;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: red;
+}
+
+.breed-select {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.cat-info img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.cat-info h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.cat-info p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.cat-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
